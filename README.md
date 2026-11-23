@@ -25,3 +25,9 @@ https://kenkhw.github.io/unit-language-studio/
 ## 部署
 
 純靜態前端，以 GitHub Pages 發布 main 分支根目錄。沒有後端、私密金鑰或雲端資料庫。`assets/vendor/qrcode-LICENSE.txt` 保留第三方元件授權資訊。
+
+## 講師示範入口
+
+https://kenkhw.github.io/unit-language-studio/?demo=1
+
+示範入口只啟用對話第 1 句的單句合成。一般入口保持停用，批次合成與下載自動補合成仍暫停。此網址不是登入或權限控管，請只分享給示範操作者。兩個入口使用同一瀏覽器草稿。

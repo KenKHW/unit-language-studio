@@ -1,5 +1,6 @@
 import {normaliseAudioBlob,playbackErrorMessage} from './audio-format.js?v=3.4-speech';
-import {CONFIG} from '../config.js?v=16-no-tts';
+import {isSpeechDemo} from './speech-availability.js?v=17-demo';
+import {CONFIG} from '../config.js?v=17-demo';
 
 const bases = {
   tts: CONFIG.API_PROXY_URL ? `${CONFIG.API_PROXY_URL.replace(/\/$/,'')}/tts/` : CONFIG.TTS_API_URL,
@@ -55,8 +56,8 @@ function serial(kind,work) {
 }
 
 const audioCache=new Map(),audioInFlight=new Map();
-export async function synthesizeSpeech({text,ethnicity,voice}) {
-  if(CONFIG.TTS_ENABLED===false)throw Error('語音合成暫停中，請使用「自己錄音」。');
+export async function synthesizeSpeech({text,ethnicity,voice,allowDemo=false}) {
+  if(CONFIG.TTS_ENABLED===false&&!(allowDemo&&isSpeechDemo()))throw Error('語音合成暫停中，請使用「自己錄音」。');
   if(!text.trim())throw Error('請先輸入族語文字。');
   if(text.length>300)throw Error('語音服務限制為 300 字元，請縮短句子。');
   const key=JSON.stringify([text,ethnicity,voice]);
