@@ -1,6 +1,6 @@
 // Only PUBLIC configuration belongs here. Never put a service_role key or private API key in GitHub.
 export const CONFIG = Object.freeze({
-  TTS_ENABLED: false, // Temporarily pause new synthesis; recordings and existing audio remain available.
+  TTS_ENABLED: true, // Enable single, batch and export-time synthesis.
   SUPABASE_URL: '',
   SUPABASE_ANON_KEY: '',
   // Optional server proxy. Leave empty for the currently public ILRDF Gradio APIs.

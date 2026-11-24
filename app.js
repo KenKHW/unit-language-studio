@@ -1,14 +1,14 @@
-import {isSpeechDemo,canSynthesizeEntry} from './js/speech-availability.js?v=18-demo-all';
-import {CONFIG} from './config.js?v=18-demo-all';
+import {isSpeechDemo,canSynthesizeEntry} from './js/speech-availability.js?v=19-speech-on';
+import {CONFIG} from './config.js?v=19-speech-on';
 import {ensureWriting,writingFields,WRITING_TYPES,writingTypeName,clozeTokens,validClozeBlanks,clozeSegments} from './js/writing-model.js';
 import {ensureSpeaking,speakingFields} from './js/speaking-model.js';
 import {repairLessonSpelling} from './js/lesson-corrections.js';
 import {ensureAssessments,assessmentFields,questionHasContent} from './js/assessment-model.js';
 import {ensureGrammarExamples,grammarEntries} from './js/grammar-model.js';
-import {bookStyles,mountBook,makeBookData,buildBookHTML,audioEntries,audioIsCurrent,resolveAudio,contentIssues} from './js/student-book.js?v=18-demo-all';
+import {bookStyles,mountBook,makeBookData,buildBookHTML,audioEntries,audioIsCurrent,resolveAudio,contentIssues} from './js/student-book.js?v=19-speech-on';
 import {normalizeNative,normalizeUnitNative} from './js/native-text.js';
 import {normaliseAudioBlob,playbackErrorMessage} from './js/audio-format.js';
-import {translateText,synthesizeSpeech} from './js/api.js?v=18-demo-all';
+import {translateText,synthesizeSpeech} from './js/api.js?v=19-speech-on';
 import {TeacherRecorder} from './js/teacher-recorder.js';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>crypto.randomUUID(), topics=[['intro','自我介紹','初級'],['routine','日常作息','初級'],['hobby','興趣與偏好','初級'],['family','跟家人的互動','初級'],['visit','拜訪親人','中級'],['weather','談論天氣','中級'],['shop','在商店買東西','中級'],['directions','問路','中級']];
@@ -74,4 +74,4 @@ init();
 
 function homeworkView(){return `<section class="panel homework-panel"><h2>課後小練習（選填）</h2><p class="muted">延伸整個單元的學習，將本課詞句用在生活中，完成後在下次上課分享。</p><label>任務說明<textarea rows="4" maxlength="3000" data-meta="homePractice" placeholder="例如：用本課句型訪問一位家人，介紹對方喜歡的活動。">${esc(unit.metadata.homePractice||'')}</textarea></label></section><div class="step-footer"><button data-step="7">上一關：寫作練習</button><button class="preview-button" data-action="preview">預覽本課教材</button></div>`;}
 
-function applySpeechAvailability(){const notice=$('#speech-notice');if(notice){notice.hidden=false;notice.textContent=isSpeechDemo()?'示範模式：單句與批次語音合成均已開放，下載時會補齊缺少的語音。':'語音合成暫停中，可使用「自己錄音」；既有音檔仍可播放，下載時不會自動合成。';}if(canSynthesizeEntry({enabled:CONFIG.TTS_ENABLED}))return;document.querySelectorAll('#batch-all,[data-action="synthesize"],[data-action="batch-vocabulary"]').forEach(b=>{b.disabled=true;b.title='語音合成暫停中，請使用自己錄音';if(!b.textContent.endsWith('（暫停）'))b.textContent+='（暫停）';});}
+function applySpeechAvailability(){const notice=$('#speech-notice');if(notice){notice.hidden=false;notice.textContent=canSynthesizeEntry({enabled:CONFIG.TTS_ENABLED})?'單句與批次語音合成已開放；下載時會補齊缺少的語音，並保留老師錄音。':'語音合成暫停中，可使用「自己錄音」；既有音檔仍可播放，下載時不會自動合成。';}if(canSynthesizeEntry({enabled:CONFIG.TTS_ENABLED}))return;document.querySelectorAll('#batch-all,[data-action="synthesize"],[data-action="batch-vocabulary"]').forEach(b=>{b.disabled=true;b.title='語音合成暫停中，請使用自己錄音';if(!b.textContent.endsWith('（暫停）'))b.textContent+='（暫停）';});}

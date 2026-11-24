@@ -1,6 +1,6 @@
 import {normaliseAudioBlob,playbackErrorMessage} from './audio-format.js?v=3.4-speech';
-import {canSynthesizeEntry} from './speech-availability.js?v=18-demo-all';
-import {CONFIG} from '../config.js?v=18-demo-all';
+import {canSynthesizeEntry} from './speech-availability.js?v=19-speech-on';
+import {CONFIG} from '../config.js?v=19-speech-on';
 
 const bases = {
   tts: CONFIG.API_PROXY_URL ? `${CONFIG.API_PROXY_URL.replace(/\/$/,'')}/tts/` : CONFIG.TTS_API_URL,
